@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:minHeight="?android:attr/listPreferredItemHeight"
-    >
 
-    <LinearLayout
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeight"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -19,9 +13,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/list_title_textview"
-            android:text="wwww"
             android:fontFamily="sans-serif-condensed"
             android:textAppearance="?android:textAppearanceLarge"
+
              />
 
         <TextView
@@ -29,12 +23,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/list_intro_textview"
-            android:text="wwww"
             android:fontFamily="sans-serif-condensed"
             android:textAppearance="?android:textAppearanceSmall"
              />
 
-    </LinearLayout>
-
-
 </LinearLayout>
+

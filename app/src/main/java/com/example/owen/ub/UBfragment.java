@@ -14,7 +14,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -26,7 +29,9 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -34,6 +39,9 @@ import java.util.ArrayList;
 public class UBfragment extends Fragment {
 
     private ArrayAdapter<String> mUBtitleAdapter;
+    private ArrayAdapter<String> mUBinforAdapter;
+    List<Map<String, String>> listitem = new ArrayList<>();
+    private SimpleAdapter  mZhihuAdapter;
     ArrayList<String> description = new ArrayList<String>();
 
     public UBfragment() {
@@ -74,18 +82,31 @@ public class UBfragment extends Fragment {
 //        };
 //        ArrayList<String> testList = new ArrayList<String>(Arrays.asList(testString));
 
-//        Initialize the adapter
+//         Initialize the adapter
+
+        mZhihuAdapter = new SimpleAdapter(getActivity(),
+                listitem,
+                R.layout.list_item_textview,
+                new String[]{"ItemTitle","ItemInfo"},
+                new int[]{R.id.list_title_textview,R.id.list_intro_textview});
+
         mUBtitleAdapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.list_item_textview,R.id.list_title_textview,new ArrayList<String>()
                 );
+//        mUBinforAdapter = new ArrayAdapter<String>(getActivity(),
+//                R.layout.list_item_textview,R.id.list_intro_textview,new ArrayList<String>());
 
 //        update the adapter
         getUBnews zhihu = new getUBnews();
         zhihu.execute();
 
         View RootView = inflater.inflate(R.layout.fragment_main, container, false);
+
         ListView listView = (ListView) RootView.findViewById(R.id.ub_listview);
-        listView.setAdapter(mUBtitleAdapter);
+
+        listView.setAdapter(mZhihuAdapter);
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -163,10 +184,11 @@ public class UBfragment extends Fragment {
                         }
 //                        Log.v(LOG_TAG,"Attribute: " +  xpp.getAttributeName(0));
                     }else if(eventType == XmlPullParser.END_TAG && xpp.getName().equals("item")){
-                        Log.v(LOG_TAG,"END TAG encountered!!");
+//                        Log.v(LOG_TAG,"END TAG encountered!!");
                         insideitem = false;
                     }
                     eventType = xpp.next();
+
                 }
 
             } catch (MalformedURLException e) {
@@ -188,10 +210,40 @@ public class UBfragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-//            mUBtitleAdapter.clear();
+
+            listitem.clear();
+            for(int i = 0; i < title.size();i++){
+                HashMap<String, String> map = new HashMap<>();
+                map.put("ItemTitle",title.get(i));
+
+                String html = description.get(i);
+                String info = Jsoup.clean(html, Whitelist.none()).substring(0,40);
+//                Log.v(LOG_TAG,info);
+                map.put("ItemInfo",info);
+                listitem.add(map);
+            }
+            mZhihuAdapter.notifyDataSetChanged();
+
+
+
+
+
+
+            if(!mUBtitleAdapter.isEmpty()){
+                mUBtitleAdapter.clear();
+            }
             for(String headline : title){
                 mUBtitleAdapter.add(headline);
             }
+
+//            if(!mUBinforAdapter.isEmpty()){
+//                mUBinforAdapter.clear();
+//            }
+//            for(String html : description){
+//                Document doc = Jsoup.parse(html);
+//                String info = Jsoup.clean(html, Whitelist.none()).substring(0,40);
+//                mUBinforAdapter.add(info);
+//            }
         }
     }
 }
