@@ -76,7 +76,7 @@ public class UBfragment extends Fragment {
 
 //        Initialize the adapter
         mUBtitleAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.list_item_textview,R.id.list_item_textview_ub,new ArrayList<String>()
+                R.layout.list_item_textview,R.id.list_title_textview,new ArrayList<String>()
                 );
 
 //        update the adapter
