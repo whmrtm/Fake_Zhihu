@@ -20,7 +20,8 @@ public class DetailActivity extends ActionBarActivity {
 
 
         WebView webView =(WebView) findViewById(R.id.ub_webview);
-        webView.getSettings().setBuiltInZoomControls(false);
+        webView.setHorizontalScrollBarEnabled(false);
+        webView.setVerticalScrollBarEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadDataWithBaseURL(null,contentHtml,"text/html","utf-8",null);
     }
