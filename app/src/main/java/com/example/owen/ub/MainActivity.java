@@ -1,6 +1,7 @@
 package com.example.owen.ub;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,8 +15,12 @@ public class MainActivity extends ActionBarActivity {
 
 //        actionBar.setLogo("@mipmap/ic_launcher");
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("Zhihu");
 
+        ActionBar ab = getSupportActionBar();
+        ab.setLogo(R.drawable.zhihuicon);
+        ab.setTitle("Zhihu");
+        ab.setDisplayUseLogoEnabled(true);
+        ab.setDisplayShowHomeEnabled(true);
     }
 
 

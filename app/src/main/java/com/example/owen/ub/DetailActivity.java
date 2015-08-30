@@ -17,15 +17,20 @@ public class DetailActivity extends ActionBarActivity {
 
         Intent intent = this.getIntent();
         String contentHtml = intent.getStringExtra(Intent.EXTRA_TEXT);
-
+        setTitle("Content");
 
         WebView webView =(WebView) findViewById(R.id.ub_webview);
         webView.setHorizontalScrollBarEnabled(false);
         webView.setVerticalScrollBarEnabled(true);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadDataWithBaseURL(null,contentHtml,"text/html","utf-8",null);
-    }
 
+        webView.loadDataWithBaseURL(null, getHtmlData(contentHtml), "text/html", "utf-8", null);
+    }
+    private String getHtmlData(String bodyHTML) {
+        String head = "<head><style>img{max-width: 100%; width:auto; height: auto;}" +
+                "a{text-decoration:none;}" +
+                "body{font-family:Microsoft YaHei; padding:20dp;}</style></head>";
+        return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
