@@ -26,9 +26,10 @@ public class DetailActivity extends ActionBarActivity {
         webView.loadDataWithBaseURL(null, getHtmlData(contentHtml), "text/html", "utf-8", null);
     }
     private String getHtmlData(String bodyHTML) {
-        String head = "<head><style>img{max-width: 100%; width:auto; height: auto;}" +
+        String head = "<head><style>" +
+                "img{max-width: 100%; width:auto; height: auto;}" +
                 "a{text-decoration:none;}" +
-                "body{font-family:Microsoft YaHei; padding:20dp;}</style></head>";
+                "body{font-family:Arial;}</style></head>";
         return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
     }
     @Override
