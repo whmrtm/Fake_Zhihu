@@ -1,6 +1,8 @@
 package com.example.owen.ub;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -39,8 +41,7 @@ public class UBfragment extends Fragment {
 
     List<Map<String, String>> listitem = new ArrayList<>();
     private SimpleAdapter  mZhihuAdapter;
-    ArrayList<String> description = new ArrayList<String>();
-
+//    SharedPreferences.Editor editor = msharedPreferences.edit();
     public UBfragment() {
     }
 
@@ -93,8 +94,8 @@ public class UBfragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
-                String contentHtml = description.get(position);
+                String[] description = MygetSharedPreference("description");
+                String contentHtml = description[position];
                 Intent intent = new Intent(getActivity(), DetailActivity.class)
                         .putExtra(Intent.EXTRA_TEXT, contentHtml);
                 startActivity(intent);
@@ -123,11 +124,13 @@ public class UBfragment extends Fragment {
 
         ArrayList<String> title = new ArrayList<String>();
         ArrayList<String> link = new ArrayList<String>();
+        ArrayList<String> description = new ArrayList<String>();
 
 
         protected Void doInBackground(Void... params) {
 
             HttpURLConnection urlConnection = null;
+
 
             final String TITLE = "title";
             final String DESC = "description";
@@ -161,14 +164,16 @@ public class UBfragment extends Fragment {
                         else if(xpp.getName().equals(TITLE)){
                             if(insideitem){
                                 title.add(xpp.nextText());
+                                MysetSharedPreference("title",title.toArray(new String[]{}));
                             }
-                        }else if(xpp.getName().equals(LINK)){
-                            if(insideitem){
-                                link.add(xpp.nextText());
-                            }
+//                        }else if(xpp.getName().equals(LINK)){
+//                            if(insideitem){
+//                                link.add(xpp.nextText());
+//                            }
                         }else if(xpp.getName().equals(DESC)){
                             if(insideitem){
                                 description.add(xpp.nextText());
+                                MysetSharedPreference("description",description.toArray(new String[]{}));
                             }
                         }
 //                        Log.v(LOG_TAG,"Attribute: " +  xpp.getAttributeName(0));
@@ -199,19 +204,49 @@ public class UBfragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-
             listitem.clear();
-            for(int i = 0; i < title.size();i++){
+            String[] mTitle = MygetSharedPreference("title");
+            String[] mDesc = MygetSharedPreference("description");
+            for(int i = 0; i < mTitle.length;i++){
                 HashMap<String, String> map = new HashMap<>();
-                map.put("ItemTitle",title.get(i));
-
-                String html = description.get(i);
+//                map.put("ItemTitle",title.get(i));
+                map.put("ItemTitle",mTitle[i]);
+                String html = mDesc[i];
                 String info = Jsoup.clean(html, Whitelist.none()).substring(0,40);
 //                Log.v(LOG_TAG,info);
                 map.put("ItemInfo",info);
+                map.put("ItemTitle",mTitle[i]);
                 listitem.add(map);
             }
             mZhihuAdapter.notifyDataSetChanged();
         }
     }
+    public String[] MygetSharedPreference(String key) {
+        String regularEx = "#";
+        String[] str = null;
+        SharedPreferences sp = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+        String values;
+        values = sp.getString(key, "");
+        str = values.split(regularEx);
+
+        return str;
+    }
+
+    public void MysetSharedPreference(String key, String[] values) {
+        String regularEx = "#";
+        String str = "";
+        SharedPreferences sp = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+        if (values != null && values.length > 0) {
+            for (String value : values) {
+                str += value;
+                str += regularEx;
+            }
+            SharedPreferences.Editor et = sp.edit();
+            et.putString(key, str);
+            et.commit();
+        }
+    }
+
+
 }
+
