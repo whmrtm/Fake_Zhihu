@@ -1,0 +1,16 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_light"
+    tools:context="com.example.owen.ub.WelcomeActivity"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Read about Zhihu\n          learn about a bigger world \n\n         Author: Heming Wang\n         (Owen)"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:id="@+id/welcome_textview"
+        android:textAppearance="?android:textAppearanceLarge"/>
+
+</LinearLayout>
