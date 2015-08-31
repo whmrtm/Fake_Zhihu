@@ -25,7 +25,6 @@
             android:parentActivityName="MainActivity"
             android:theme="@style/AppTheme"
             >
-
             <meta-data
                 android:name="android.support.PAREENT_ACTIVITY"
                 android:value="com.example.owen.ub.MainActivity">

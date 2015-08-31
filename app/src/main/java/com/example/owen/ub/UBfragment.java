@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -38,8 +37,6 @@ import java.util.Map;
  */
 public class UBfragment extends Fragment {
 
-    private ArrayAdapter<String> mUBtitleAdapter;
-    private ArrayAdapter<String> mUBinforAdapter;
     List<Map<String, String>> listitem = new ArrayList<>();
     private SimpleAdapter  mZhihuAdapter;
     ArrayList<String> description = new ArrayList<String>();
@@ -69,19 +66,12 @@ public class UBfragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        String[] testString = {
-//                "Family Welcome events need volunteers",
-//                "Writing Centre to hold Open House event",
-//                "Remembering Donna Wilhelm and Anupam Banerji"
-//        };
-//        ArrayList<String> testList = new ArrayList<String>(Arrays.asList(testString));
 
 //         Initialize the adapter
 
@@ -91,20 +81,12 @@ public class UBfragment extends Fragment {
                 new String[]{"ItemTitle","ItemInfo"},
                 new int[]{R.id.list_title_textview,R.id.list_intro_textview});
 
-        mUBtitleAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.list_item_textview,R.id.list_title_textview,new ArrayList<String>()
-                );
 //        mUBinforAdapter = new ArrayAdapter<String>(getActivity(),
 //                R.layout.list_item_textview,R.id.list_intro_textview,new ArrayList<String>());
 
 //        update the adapter
-        getUBnews zhihu = new getUBnews();
-        zhihu.execute();
-
         View RootView = inflater.inflate(R.layout.fragment_main, container, false);
-
         ListView listView = (ListView) RootView.findViewById(R.id.ub_listview);
-
         listView.setAdapter(mZhihuAdapter);
 
 
@@ -124,7 +106,11 @@ public class UBfragment extends Fragment {
 
     @Override
     public void onStart() {
+
         super.onStart();
+        getUBnews zhihu = new getUBnews();
+        zhihu.execute();
+
     }
 
     public class getUBnews extends AsyncTask<Void,Void,Void>{
@@ -224,27 +210,6 @@ public class UBfragment extends Fragment {
                 listitem.add(map);
             }
             mZhihuAdapter.notifyDataSetChanged();
-
-
-
-
-
-
-            if(!mUBtitleAdapter.isEmpty()){
-                mUBtitleAdapter.clear();
-            }
-            for(String headline : title){
-                mUBtitleAdapter.add(headline);
-            }
-
-//            if(!mUBinforAdapter.isEmpty()){
-//                mUBinforAdapter.clear();
-//            }
-//            for(String html : description){
-//                Document doc = Jsoup.parse(html);
-//                String info = Jsoup.clean(html, Whitelist.none()).substring(0,40);
-//                mUBinforAdapter.add(info);
-//            }
         }
     }
 }
