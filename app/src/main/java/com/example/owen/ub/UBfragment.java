@@ -111,6 +111,8 @@ public class UBfragment extends Fragment {
         getUBnews zhihu = new getUBnews();
         zhihu.execute();
 
+        Log.v("DEBUGE","On Start");
+
     }
 
     public class getUBnews extends AsyncTask<Void,Void,Void>{
