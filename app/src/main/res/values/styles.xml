@@ -10,7 +10,7 @@
     <style name="ActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@android:color/holo_blue_bright</item>
         <item name="background">@android:color/holo_blue_light</item>
-        <item name="logo">@mipmap/ic_launcher</item>
+        <ite name="logo">@mipmap/ic_launcher</ite>
         <item name="android:windowActionBarOverlay">true</item>
     </style>
 

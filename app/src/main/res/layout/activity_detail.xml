@@ -9,6 +9,6 @@
     <WebView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/ub_webview"></WebView>
+        android:id="@+id/ub_webview"/>
 
 </LinearLayout>
