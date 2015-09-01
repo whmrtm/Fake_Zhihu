@@ -21,6 +21,9 @@ public class MainActivity extends ActionBarActivity {
         ab.setTitle("Zhihu");
         ab.setDisplayUseLogoEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
+
+
+
     }
 
 

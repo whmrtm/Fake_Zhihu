@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.TextView;
 
 
 public class WelcomeActivity extends Activity {
@@ -18,20 +21,29 @@ public class WelcomeActivity extends Activity {
     }
 
     public void Start(){
-        new Thread(){
-            public void run(){
-                try {
-                        Thread.sleep(2500);
-                        }
-                catch (InterruptedException e) {
-                    e.printStackTrace();
-                        }
-                    Intent intent = new Intent();
-                    intent.setClass(WelcomeActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+        TextView tv = (TextView) findViewById(R.id.welcome_textview);
+        AlphaAnimation animation = new AlphaAnimation(0.1f,1.0f);
+        animation.setDuration(3000);
+        tv.setAnimation(animation);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
             }
-        }.start();
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 
     @Override

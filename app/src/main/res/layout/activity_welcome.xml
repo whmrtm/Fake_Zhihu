@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_light"
     tools:context="com.example.owen.ub.WelcomeActivity"
+    android:id="@+id/welcome_linearlayout"
     >
     <TextView
         android:layout_width="match_parent"

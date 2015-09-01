@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
@@ -111,7 +112,7 @@ public class UBfragment extends Fragment {
         getUBnews zhihu = new getUBnews();
         zhihu.execute();
 
-        Log.v("DEBUGE","On Start");
+//        Log.v("DEBUGE","On Start");
 
     }
 
@@ -124,6 +125,10 @@ public class UBfragment extends Fragment {
         ArrayList<String> title = new ArrayList<String>();
         ArrayList<String> link = new ArrayList<String>();
 
+        @Override
+        protected void onPreExecute() {
+            Toast.makeText(getActivity(),"Fetching content from Zhihu",Toast.LENGTH_SHORT).show();
+        }
 
         protected Void doInBackground(Void... params) {
 
