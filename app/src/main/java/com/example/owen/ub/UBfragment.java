@@ -127,7 +127,7 @@ public class UBfragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            Toast.makeText(getActivity(),"Fetching content from Zhihu",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Fetching content from Zhihu",Toast.LENGTH_LONG).show();
         }
 
         protected Void doInBackground(Void... params) {
