@@ -98,6 +98,7 @@ public class UBfragment extends Fragment {
                 String contentHtml = description.get(position);
                 Intent intent = new Intent(getActivity(), DetailActivity.class)
                         .putExtra(Intent.EXTRA_TEXT, contentHtml);
+                intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                 startActivity(intent);
             }
         });
@@ -127,7 +128,7 @@ public class UBfragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            Toast.makeText(getActivity(),"Fetching content from Zhihu",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),"Update content",Toast.LENGTH_LONG).show();
         }
 
         protected Void doInBackground(Void... params) {
