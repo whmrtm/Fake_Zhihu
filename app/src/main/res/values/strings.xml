@@ -3,6 +3,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_detail">DetailActivity</string>
-    <string name="title_activity_welcome">WelcomeActivity</string>
-    <string name="welcome_string">Read about Zhihu\nlearn about a bigger world\n\nAuthor: Heming Wang\n(Owen)</string>
+    <string name="title_activity_welcome">F-Zhihu</string>
+    <string name="welcome_string">Read Zhihu\nlearn about a bigger world\n\nAuthor: Heming Wang\n(Owen)</string>
 </resources>
